@@ -7,6 +7,12 @@ if ARGV.empty?
   use_uri = 'https://www.gitlab.com/'
 else
   use_uri = ARGV[0]
+  if use_uri =~ /\A#{URI::regexp(['http', 'https'])}\z/
+    # URL is valid
+  else
+    puts "The provided URI, \"#{use_uri}\" is not valid.  Exiting."
+    exit
+  end
 end
 
 begin
