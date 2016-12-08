@@ -25,6 +25,7 @@ begin
     # Benchmark the elapsed time to retrieve the URI, then push in on the array
     response_time = Benchmark.realtime {Net::HTTP.get_response(URI.parse(use_uri))}
     time_arr.push (response_time)
+    puts "http_ping #{use_uri}: #{response_time.round(3)}s"
   end
 
   # Run through all values, determine the average and longest time values
@@ -40,10 +41,7 @@ begin
 
   # Output the average, longest and complete response times
   puts "The average HTTP response time was #{curr_avg.round(3)}s, with " +
-  "a longest time of #{curr_longest.round(3)}s.  The complete list of response " +
-  "times is as follows:"
-
-  p time_arr
+  "a longest time of #{curr_longest.round(3)}s."
 
 rescue => err
   # Handle any HTTP related errors
